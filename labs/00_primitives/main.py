@@ -60,6 +60,9 @@ def main() -> None:
     print("\nSeverity")
     print(f"  score: {severity.score:.3f}")
     print(f"  confidence: {severity.confidence:.3f}")
+    print("  probabilities:")
+    for level, probability in sorted(severity.probabilities.items()):
+        print(f"    {level}: {probability:.3f}")
     print("  legend:")
     for level, description in severity.legend.items():
         print(f"    {level}: {description}")
