@@ -24,7 +24,7 @@
 | --- | --- | --- |
 | 00 | Primitive Playground | `Choice`、`Noul`、`Score` |
 | 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State、instructions、typed judgments |
-| 02 | DevOps Incident Triage | Fan-out、confidence gating |
+| 02 | [DevOps Incident Triage](labs/02_incident_triage/) | Fan-out、confidence gating |
 | 03 | Deployment Risk Scoring | Atomic judgments、composite scoring |
 | 04 | Agent Skill Router | Ranking、two-stage routing |
 | 05 | Evals & Threshold Tuning | Accuracy、coverage、threshold |
