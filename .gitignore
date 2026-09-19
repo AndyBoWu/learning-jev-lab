@@ -7,3 +7,7 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+
+# Local-only private project notes and planning
+.private/*
+!.private/README.md
