@@ -23,7 +23,7 @@
 | Lab | 主题 | 核心概念 |
 | --- | --- | --- |
 | 00 | Primitive Playground | `Choice`、`Noul`、`Score` |
-| 01 | GitHub Issue Triage | State、instructions、typed judgments |
+| 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State、instructions、typed judgments |
 | 02 | DevOps Incident Triage | Fan-out、confidence gating |
 | 03 | Deployment Risk Scoring | Atomic judgments、composite scoring |
 | 04 | Agent Skill Router | Ranking、two-stage routing |
@@ -85,7 +85,7 @@ uv run --env-file .env python labs/00_primitives/main.py
 
 - [x] Learning plan
 - [x] Lab 00 — Primitive Playground
-- [ ] Lab 01 — GitHub Issue Triage
+- [x] Lab 01 — GitHub Issue Triage
 - [ ] Lab 02 — DevOps Incident Triage
 - [ ] Lab 03 — Deployment Risk Scoring
 - [ ] Lab 04 — Agent Skill Router
