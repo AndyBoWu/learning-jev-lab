@@ -43,18 +43,26 @@ uv sync
 
 ### 2. Set your TypeSafe API key
 
-Create an API key in the TypeSafe console, then export it in your shell:
+Create a local `.env` file from the public template:
 
 ```bash
-export TYPESAFE_API_KEY="your-api-key"
+cp .env.example .env
 ```
 
-Do not commit a real API key.
+Then replace the placeholder in `.env` with your real TypeSafe API key:
+
+```dotenv
+TYPESAFE_API_KEY=your-real-api-key
+```
+
+The `.env` file is ignored by Git and must never be committed.
 
 ### 3. Run Lab 00
 
+Load the local `.env` file explicitly when running with uv:
+
 ```bash
-uv run python labs/00_primitives/main.py
+uv run --env-file .env python labs/00_primitives/main.py
 ```
 
 ## Repository principles

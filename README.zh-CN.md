@@ -43,18 +43,26 @@ uv sync
 
 ### 2. 设置 TypeSafe API Key
 
-在 TypeSafe console 创建 API key，然后在 shell 中设置：
+先从公开模板创建本地 `.env` 文件：
 
 ```bash
-export TYPESAFE_API_KEY="your-api-key"
+cp .env.example .env
 ```
 
-不要把真实 API key 提交到 GitHub。
+然后把 `.env` 里的 placeholder 换成你真实的 TypeSafe API key：
+
+```dotenv
+TYPESAFE_API_KEY=your-real-api-key
+```
+
+`.env` 已经被 Git ignore，真实 API key 不应该提交到 GitHub。
 
 ### 3. 运行 Lab 00
 
+运行时让 uv 显式加载本地 `.env`：
+
 ```bash
-uv run python labs/00_primitives/main.py
+uv run --env-file .env python labs/00_primitives/main.py
 ```
 
 ## 这个仓库遵循的原则

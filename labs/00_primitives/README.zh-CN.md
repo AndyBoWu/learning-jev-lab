@@ -21,9 +21,13 @@
 ## 运行
 
 ```bash
-export TYPESAFE_API_KEY="your-api-key"
-uv run python labs/00_primitives/main.py
+cp .env.example .env
+# 只需要把真实 TYPESAFE_API_KEY 写进 .env 一次。
+
+uv run --env-file .env python labs/00_primitives/main.py
 ```
+
+根目录的 `.gitignore` 已经忽略 `.env`，因此真实 key 只保留在本机。
 
 ## 重点观察什么
 

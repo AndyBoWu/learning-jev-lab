@@ -21,9 +21,13 @@ We ask three different semantic questions:
 ## Run it
 
 ```bash
-export TYPESAFE_API_KEY="your-api-key"
-uv run python labs/00_primitives/main.py
+cp .env.example .env
+# Put your real TYPESAFE_API_KEY in .env once.
+
+uv run --env-file .env python labs/00_primitives/main.py
 ```
+
+The root `.gitignore` excludes `.env`, so the real key stays local.
 
 ## What to look for
 
