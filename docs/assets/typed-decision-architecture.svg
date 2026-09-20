@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Typed Decision Architecture</title>
+  <desc id="desc">Input state flows into a typed decision layer using Jev or Laya, then through Choice, Noul, or Score to probabilities and scores, deterministic policy, and Route, Assign, or Escalate actions.</desc>
+  <defs>
+    <style>
+      .title { font: 700 42px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#111827; }
+      .section { font: 700 30px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#111827; }
+      .label { font: 650 24px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#111827; }
+      .sub { font: 400 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#6B7280; }
+      .note { font: 400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#8A8F98; }
+      .node { fill:#FFF9F4; stroke:#F97316; stroke-width:2; }
+      .panel { fill:#FFF5EC; stroke:#F97316; stroke-width:2.2; }
+      .inner { fill:#FFFBF7; stroke:#FDBA74; stroke-width:1.6; }
+      .conn { fill:none; stroke:#7A7F87; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+      .accent { fill:none; stroke:#F97316; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+      .accentfill { fill:#F97316; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7A7F87"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#FFFCF9"/>
+  <text x="800" y="58" text-anchor="middle" class="title">Typed Decision Architecture</text>
+
+  <rect x="120" y="135" width="300" height="98" rx="18" class="node"/>
+  <path d="M170 160 h28 l18 18 v38 h-46 z M198 160 v18 h18 M181 191 h24 M181 204 h24" class="accent" stroke-width="3"/>
+  <text x="240" y="194" class="label">Input / State</text>
+
+  <rect x="530" y="95" width="550" height="195" rx="22" class="panel"/>
+  <text x="805" y="137" text-anchor="middle" class="section">Typed Decision Layer</text>
+  <rect x="565" y="160" width="220" height="90" rx="16" class="inner"/>
+  <circle cx="612" cy="205" r="18" class="accent" stroke-width="3"/>
+  <path d="M612 187 v36 M600 195 h24 M598 211 h28" class="accent" stroke-width="3"/>
+  <text x="655" y="202" class="label">Jev</text>
+  <text x="655" y="228" class="sub">hosted</text>
+  <rect x="825" y="160" width="220" height="90" rx="16" class="inner"/>
+  <path d="M870 187 l18 -10 18 10 v22 l-18 10 -18 -10 z M870 187 l18 10 18 -10 M888 197 v22" class="accent" stroke-width="3"/>
+  <text x="922" y="202" class="label">Laya</text>
+  <text x="922" y="228" class="sub">open-weight</text>
+  <path d="M420 184 H510" class="conn" marker-end="url(#arrow)"/>
+
+  <path d="M805 290 V330 M805 330 H510 Q490 330 490 350 V365 M805 330 H805 V365 M805 330 H1120 Q1140 330 1140 350 V365" class="conn"/>
+  <path d="M490 350 V365" class="conn" marker-end="url(#arrow)"/>
+  <path d="M805 350 V365" class="conn" marker-end="url(#arrow)"/>
+  <path d="M1140 350 V365" class="conn" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="375" width="200" height="78" rx="16" class="node"/>
+  <circle cx="433" cy="401" r="4" class="accentfill"/><circle cx="433" cy="414" r="4" class="accentfill"/><circle cx="433" cy="427" r="4" class="accentfill"/>
+  <path d="M445 401 h24 M445 414 h24 M445 427 h24" class="accent" stroke-width="3"/>
+  <text x="492" y="423" class="label">Choice</text>
+
+  <rect x="705" y="375" width="200" height="78" rx="16" class="node"/>
+  <ellipse cx="750" cy="399" rx="14" ry="7" class="accent" stroke-width="3"/>
+  <path d="M736 399 v24 c0 4 6 7 14 7s14-3 14-7v-24 M736 411 c0 4 6 7 14 7s14-3 14-7" class="accent" stroke-width="3"/>
+  <text x="790" y="423" class="label">Noul</text>
+
+  <rect x="1020" y="375" width="200" height="78" rx="16" class="node"/>
+  <path d="M1060 427 v-16 M1072 427 v-28 M1084 427 v-40" class="accent" stroke-width="4"/>
+  <text x="1110" y="423" class="label">Score</text>
+
+  <path d="M490 453 V482 Q490 500 510 500 H805 M805 453 V520 M1120 453 V482 Q1120 500 1100 500 H805" class="conn"/>
+  <path d="M805 500 V520" class="conn" marker-end="url(#arrow)"/>
+
+  <rect x="610" y="530" width="390" height="78" rx="16" class="node"/>
+  <rect x="653" y="552" width="31" height="31" rx="3" class="accent" stroke-width="3"/>
+  <path d="M663 552 v31 M674 552 v31 M653 562 h31 M653 573 h31" class="accent" stroke-width="2.5"/>
+  <text x="720" y="579" class="label">Probabilities / Scores</text>
+
+  <path d="M805 608 V638" class="conn" marker-end="url(#arrow)"/>
+  <rect x="610" y="650" width="390" height="78" rx="16" class="node"/>
+  <circle cx="667" cy="689" r="16" class="accent" stroke-width="4"/>
+  <path d="M667 666 v8 M667 704 v8 M644 689 h8 M682 689 h8 M651 673 l6 6 M677 699 l6 6 M683 673 l-6 6 M657 699 l-6 6" class="accent" stroke-width="3"/>
+  <text x="720" y="698" class="label">Deterministic Policy</text>
+
+  <path d="M805 728 V760 M805 760 H500 Q480 760 480 780 V790 M805 760 H805 V790 M805 760 H1130 Q1150 760 1150 780 V790" class="conn"/>
+  <path d="M480 780 V790" class="conn" marker-end="url(#arrow)"/>
+  <path d="M805 780 V790" class="conn" marker-end="url(#arrow)"/>
+  <path d="M1150 780 V790" class="conn" marker-end="url(#arrow)"/>
+
+  <rect x="380" y="800" width="200" height="70" rx="16" class="node"/>
+  <path d="M425 850 v-34 M425 816 l-10 10 M425 816 l10 10 M425 835 h16 l8 -8 M449 827 v13" class="accent" stroke-width="3"/>
+  <text x="485" y="844" class="label">Route</text>
+
+  <rect x="705" y="800" width="200" height="70" rx="16" class="node"/>
+  <circle cx="748" cy="824" r="7" class="accent" stroke-width="3"/>
+  <circle cx="766" cy="824" r="7" class="accent" stroke-width="3"/>
+  <path d="M735 847 c2-10 8-15 17-15s15 5 17 15 M753 847 c2-9 8-14 17-14s15 5 17 14" class="accent" stroke-width="3"/>
+  <text x="806" y="844" class="label">Assign</text>
+
+  <rect x="1030" y="800" width="240" height="70" rx="16" class="node"/>
+  <path d="M1072 848 l17-31 17 31 z M1089 828 v9 M1089 842 v1" class="accent" stroke-width="3"/>
+  <text x="1125" y="844" class="label">Escalate</text>
+
+  <text x="1560" y="885" text-anchor="end" class="note">Generate text only when generation is actually needed.</text>
+</svg>
