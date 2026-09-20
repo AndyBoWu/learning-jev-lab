@@ -54,7 +54,7 @@ The early labs use the **same problem and decision schema across Jev and Laya** 
 
 | Lab | Topic | Main idea |
 | --- | --- | --- |
-| 00 | Primitive Playground | Learn the three typed-decision primitives |
+| 00 | [Primitive Playground](labs/00_primitives/) | Learn the three typed-decision primitives side by side |
 | 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State, instructions, semantic judgments, deterministic policy |
 | 02 | DevOps Incident Triage | Fan-out and confidence gating |
 | 03 | Deployment Risk Scoring | Atomic judgments and composite scoring |
@@ -88,13 +88,21 @@ See [docs/why-typed-decisions.md](docs/why-typed-decisions.md) for the deeper ex
 
 ## Quick start
 
-### 1. Install dependencies
+### 1. Install base dependencies
 
 This repo uses [uv](https://docs.astral.sh/uv/).
 
 ```bash
 uv sync
 ```
+
+For the Laya implementations:
+
+```bash
+uv sync --extra laya
+```
+
+Laya is optional because its local model/runtime dependencies are substantially heavier than the Jev SDK.
 
 ### 2. Configure Jev
 
@@ -112,12 +120,24 @@ TYPESAFE_API_KEY=your-real-api-key
 
 The `.env` file is ignored by Git and must never be committed.
 
-Laya setup will be introduced alongside the first comparative lab rather than forced into the base install, because its local model/runtime dependencies are substantially heavier than the Jev SDK.
-
-### 3. Run the current primitive lab
+### 3. Run Lab 00 with Jev
 
 ```bash
-uv run --env-file .env python labs/00_primitives/main.py
+uv run --env-file .env python labs/00_primitives/jev.py
+```
+
+### 4. Run the same Lab with Laya
+
+```bash
+uv run --extra laya python labs/00_primitives/laya_backend.py
+```
+
+The first Laya run downloads the selected checkpoint; later runs reuse the local model cache.
+
+### 5. Compare them side by side
+
+```bash
+uv run --extra laya --env-file .env python labs/00_primitives/compare.py
 ```
 
 ## Repository principles
@@ -141,11 +161,11 @@ uv run --env-file .env python labs/00_primitives/main.py
 
 ## Status
 
-- [x] Original Jev learning plan
-- [x] Lab 00 — Primitive Playground (Jev)
+- [x] Repository expanded from Jev-only to Typed Decision Lab
+- [x] Lab 00 — Primitive Playground (Jev + Laya)
 - [x] Lab 01 — GitHub Issue Triage (Jev)
-- [ ] Add Laya implementation to the primitive and issue-triage labs
-- [ ] Lab 02 — DevOps Incident Triage
+- [ ] Lab 01 — GitHub Issue Triage (Laya)
+- [ ] Lab 02 — DevOps Incident Triage (Jev + Laya)
 - [ ] Lab 03 — Deployment Risk Scoring
 - [ ] Lab 04 — Agent / Model Router
 - [ ] Lab 05 — Evals & Threshold Tuning
