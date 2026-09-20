@@ -59,7 +59,7 @@ Laya 的独立 Apple Silicon / MLX port。它非常适合继续学习 local infe
 
 | Lab | 主题 | 核心概念 |
 | --- | --- | --- |
-| 00 | Primitive Playground | 三种 typed-decision primitive |
+| 00 | [Primitive Playground](labs/00_primitives/) | 并排学习三种 typed-decision primitive |
 | 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State、instructions、semantic judgments、deterministic policy |
 | 02 | DevOps Incident Triage | Fan-out、confidence gating |
 | 03 | Deployment Risk Scoring | Atomic judgments、composite scoring |
@@ -100,13 +100,19 @@ probabilities / score
 
 ## 快速开始
 
-### 1. 安装依赖
-
-这个仓库使用 [uv](https://docs.astral.sh/uv/)：
+### 1. 安装 base dependencies
 
 ```bash
 uv sync
 ```
+
+需要运行 Laya implementation 时：
+
+```bash
+uv sync --extra laya
+```
+
+Laya 作为 optional dependency，是因为它的 local model/runtime stack 比 Jev SDK 重很多。
 
 ### 2. 配置 Jev
 
@@ -124,12 +130,24 @@ TYPESAFE_API_KEY=your-real-api-key
 
 真实 API key 不应该提交到 GitHub。
 
-Laya 的安装会在第一个 comparative lab 里单独引入，而不是直接塞进 base install，因为它的本地模型/runtime 依赖比 Jev SDK 重很多。
-
-### 3. 运行当前 Primitive Lab
+### 3. 用 Jev 跑 Lab 00
 
 ```bash
-uv run --env-file .env python labs/00_primitives/main.py
+uv run --env-file .env python labs/00_primitives/jev.py
+```
+
+### 4. 用 Laya 跑完全相同的 Lab
+
+```bash
+uv run --extra laya python labs/00_primitives/laya_backend.py
+```
+
+第一次运行会下载 checkpoint，之后复用本地 model cache。
+
+### 5. 并排比较
+
+```bash
+uv run --extra laya --env-file .env python labs/00_primitives/compare.py
 ```
 
 ## 这个仓库遵循的原则
@@ -153,11 +171,11 @@ uv run --env-file .env python labs/00_primitives/main.py
 
 ## 当前进度
 
-- [x] 原始 Jev learning plan
-- [x] Lab 00 — Primitive Playground（Jev）
+- [x] Repository 已经从 Jev-only 扩展成 Typed Decision Lab
+- [x] Lab 00 — Primitive Playground（Jev + Laya）
 - [x] Lab 01 — GitHub Issue Triage（Jev）
-- [ ] 给 Primitive / Issue Triage Lab 加入 Laya 版本
-- [ ] Lab 02 — DevOps Incident Triage
+- [ ] Lab 01 — GitHub Issue Triage（Laya）
+- [ ] Lab 02 — DevOps Incident Triage（Jev + Laya）
 - [ ] Lab 03 — Deployment Risk Scoring
 - [ ] Lab 04 — Agent / Model Router
 - [ ] Lab 05 — Evals & Threshold Tuning
