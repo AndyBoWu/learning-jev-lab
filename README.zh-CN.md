@@ -6,13 +6,9 @@
 
 这个项目最初是一个 TypeSafe Jev 学习仓库。现在我们把它提升成一个更通用的学习项目，重点理解下面这套架构：
 
-```text
-state
-  → semantic judgments（语义判断）
-  → probabilities / scores（概率 / 分数）
-  → deterministic policy（确定性策略）
-  → actions（动作）
-```
+<p align="center">
+  <img src="docs/assets/typed-decision-architecture.svg" alt="Typed Decision Architecture：state 通过 Jev 或 Laya 做 typed decisions，输出 probabilities，再由 deterministic policy 决定最终 action。" width="100%">
+</p>
 
 目标不是单纯学习两个 SDK，而是理解：
 
@@ -73,7 +69,7 @@ Laya 的独立 Apple Silicon / MLX port。它非常适合继续学习 local infe
 | 07 | Laya Internals | Marker scoring、decision heads、calibration、RLCD |
 | 08 | Laya Runtime Engineering | PyTorch vs MLX、batching、compilation、memory、latency |
 
-学习规划持续记录在 [Issue #1](https://github.com/AndyBoWu/learning-jev-lab/issues/1)。
+学习规划持续记录在 [Issue #1](https://github.com/AndyBoWu/typed-decision-lab/issues/1)。
 
 ## 为什么 Typed Decision 会更快？
 

@@ -6,13 +6,9 @@ Hands-on labs for **Jev, Laya, and typed AI decision systems**.
 
 This repository started as a TypeSafe Jev learning lab. It is expanding into a vendor-neutral place to learn a broader architecture:
 
-```text
-state
-  → semantic judgments
-  → probabilities / scores
-  → deterministic policy
-  → actions
-```
+<p align="center">
+  <img src="docs/assets/typed-decision-architecture.svg" alt="Typed Decision Architecture: state flows through Jev or Laya typed decisions into probabilities, deterministic policy, and actions." width="100%">
+</p>
 
 The goal is not to learn two SDKs. The goal is to understand when typed decision models are a better fit than free-form text generation, how different implementations behave, and how to build safe production workflows around them.
 
@@ -68,7 +64,7 @@ The early labs use the **same problem and decision schema across Jev and Laya** 
 | 07 | Laya Internals | Marker scoring, decision heads, calibration, RLCD |
 | 08 | Laya Runtime Engineering | PyTorch vs MLX, batching, compilation, memory, latency |
 
-The evolving learning plan is tracked in [Issue #1](https://github.com/AndyBoWu/learning-jev-lab/issues/1).
+The evolving learning plan is tracked in [Issue #1](https://github.com/AndyBoWu/typed-decision-lab/issues/1).
 
 ## Why typed decisions?
 
