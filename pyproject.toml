@@ -1,7 +1,7 @@
 [project]
-name = "learning-jev-lab"
-version = "0.1.0"
-description = "Hands-on labs for learning TypeSafe Jev and typed AI decision systems."
+name = "typed-decision-lab"
+version = "0.2.0"
+description = "Hands-on labs for Jev, Laya, and typed AI decision systems."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

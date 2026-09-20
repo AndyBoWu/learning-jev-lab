@@ -1,35 +1,94 @@
-# learning-jev-lab
+# Typed Decision Lab
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A hands-on learning lab for **TypeSafe Jev** and typed AI decision systems.
+Hands-on labs for **Jev, Laya, and typed AI decision systems**.
 
-The goal is not to reproduce the full official documentation. The goal is to compress the most useful concepts into a small set of runnable labs so engineers can build intuition quickly.
+This repository started as a TypeSafe Jev learning lab. It is expanding into a vendor-neutral place to learn a broader architecture:
 
-> Jev makes semantic judgments. Code owns the workflow.
+```text
+state
+  → semantic judgments
+  → probabilities / scores
+  → deterministic policy
+  → actions
+```
+
+The goal is not to learn two SDKs. The goal is to understand when typed decision models are a better fit than free-form text generation, how different implementations behave, and how to build safe production workflows around them.
+
+> Decision models make semantic judgments. Code owns policy and action.
+
+## Systems covered
+
+### TypeSafe Jev
+
+A hosted typed-decision system used in the first labs. Jev is useful for learning primitives, confidence-aware automation, and production workflow design without managing model infrastructure.
+
+### Laya
+
+An open-weight, non-autoregressive System 1 decision model. Laya evaluates `choice`, `score`, and `noul` questions directly as probability distributions instead of generating free-form text.
+
+- Upstream: https://github.com/NandhaKishorM/laya
+
+### Laya-MLX
+
+An independent Apple Silicon / MLX port of Laya. It is useful for studying local inference, runtime engineering, model parity, batching, compilation, and latency optimization.
+
+- MLX runtime: https://github.com/mizorewww/laya-mlx
+
+See [docs/references.md](docs/references.md) for how these projects relate.
 
 ## What you will learn
 
-- When to use `Choice`, `Noul`, and `Score`
-- How to structure state and atomic questions
-- How to use confidence without turning it into a magic number
-- Speculative fan-out and confidence-gated routing
+- `Choice`, `Noul`, and `Score` / `choice`, `noul`, and `score`
+- How to structure state and atomic semantic questions
+- Why typed decisions can be much faster than autoregressive text generation
+- How to interpret probabilities and confidence without treating them as magic numbers
+- Confidence-gated automation and human-review thresholds
+- Speculative fan-out and parallel judgments
 - Composite scoring with deterministic policy in code
-- Agent skill routing
-- Evaluation and threshold tuning
+- Agent and model routing
+- Evaluation, calibration, and threshold tuning
+- Production concerns: retries, idempotency, auditability, versioning, and observability
+- Laya internals and Apple Silicon inference as advanced topics
 
 ## Learning path
 
+The early labs use the **same problem and decision schema across Jev and Laya** whenever practical. This makes the implementation differences visible instead of hiding them behind an adapter too early.
+
 | Lab | Topic | Main idea |
 | --- | --- | --- |
-| 00 | Primitive Playground | `Choice`, `Noul`, `Score` |
-| 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State, instructions, typed judgments |
+| 00 | Primitive Playground | Learn the three typed-decision primitives |
+| 01 | [GitHub Issue Triage](labs/01_issue_triage/) | State, instructions, semantic judgments, deterministic policy |
 | 02 | DevOps Incident Triage | Fan-out and confidence gating |
 | 03 | Deployment Risk Scoring | Atomic judgments and composite scoring |
-| 04 | Agent Skill Router | Ranking and two-stage routing |
-| 05 | Evals & Threshold Tuning | Accuracy, coverage, and thresholds |
+| 04 | Agent / Model Router | Ranking, routing, and two-stage decisions |
+| 05 | Evals & Threshold Tuning | Accuracy, calibration, coverage, thresholds |
+| 06 | Production Issue Triage | Webhook → decisions → policy → actions → audit trail |
+| 07 | Laya Internals | Marker scoring, decision heads, calibration, RLCD |
+| 08 | Laya Runtime Engineering | PyTorch vs MLX, batching, compilation, memory, latency |
 
-The full learning plan is tracked in [Issue #1](https://github.com/AndyBoWu/learning-jev-lab/issues/1).
+The evolving learning plan is tracked in [Issue #1](https://github.com/AndyBoWu/learning-jev-lab/issues/1).
+
+## Why typed decisions?
+
+A generative LLM usually solves a classification-style task by first encoding the input and then **autoregressively generating output tokens** such as an explanation or JSON object. Each output token depends on the previous output tokens, so decoding is inherently sequential.
+
+A typed decision model can instead compute a fixed set of logits or probabilities in a forward pass:
+
+```text
+state + typed question
+        ↓
+semantic representation
+        ↓
+decision head
+        ↓
+probabilities / score
+```
+
+This does **not** mean the model performs no semantic analysis. The semantic computation is still there, but the system does not need to express that analysis as a token-by-token textual answer.
+
+See [docs/why-typed-decisions.md](docs/why-typed-decisions.md) for the deeper explanation.
 
 ## Quick start
 
@@ -41,7 +100,7 @@ This repo uses [uv](https://docs.astral.sh/uv/).
 uv sync
 ```
 
-### 2. Set your TypeSafe API key
+### 2. Configure Jev
 
 Create a local `.env` file from the public template:
 
@@ -49,7 +108,7 @@ Create a local `.env` file from the public template:
 cp .env.example .env
 ```
 
-Then replace the placeholder in `.env` with your real TypeSafe API key:
+Then replace the placeholder with your real TypeSafe API key:
 
 ```dotenv
 TYPESAFE_API_KEY=your-real-api-key
@@ -57,9 +116,9 @@ TYPESAFE_API_KEY=your-real-api-key
 
 The `.env` file is ignored by Git and must never be committed.
 
-### 3. Run Lab 00
+Laya setup will be introduced alongside the first comparative lab rather than forced into the base install, because its local model/runtime dependencies are substantially heavier than the Jev SDK.
 
-Load the local `.env` file explicitly when running with uv:
+### 3. Run the current primitive lab
 
 ```bash
 uv run --env-file .env python labs/00_primitives/main.py
@@ -69,24 +128,31 @@ uv run --env-file .env python labs/00_primitives/main.py
 
 1. **One important concept per lab.**
 2. **Runnable examples before abstraction.**
-3. **Semantic judgment belongs to Jev; deterministic policy belongs to code.**
-4. **Explain failure modes and trade-offs, not only happy paths.**
-5. **Keep examples public-safe:** no company data, internal prompts, customer data, or secrets.
-6. **English + 中文 documentation** so the material is useful to both audiences.
+3. **Semantic judgment belongs to the decision model; deterministic policy belongs to code.**
+4. **Use the same scenario across backends when comparison teaches something useful.**
+5. **Do not hide Jev/Laya differences behind a common adapter too early.**
+6. **Explain failure modes and trade-offs, not only happy paths.**
+7. **Keep examples public-safe:** no company data, internal prompts, customer data, or secrets.
+8. **English + 中文 documentation** so the material is useful to both audiences.
 
 ## References
 
 - [TypeSafe Introduction](https://docs.typesafe.ai/introduction)
 - [TypeSafe Primitives](https://docs.typesafe.ai/primitives)
 - [TypeSafe Python SDK](https://docs.typesafe.ai/sdk/python)
-- [TypeSafe Agent Skill](https://docs.typesafe.ai/agent-skill)
+- [Laya upstream](https://github.com/NandhaKishorM/laya)
+- [Laya-MLX](https://github.com/mizorewww/laya-mlx)
 
 ## Status
 
-- [x] Learning plan
-- [x] Lab 00 — Primitive Playground
-- [x] Lab 01 — GitHub Issue Triage
+- [x] Original Jev learning plan
+- [x] Lab 00 — Primitive Playground (Jev)
+- [x] Lab 01 — GitHub Issue Triage (Jev)
+- [ ] Add Laya implementation to the primitive and issue-triage labs
 - [ ] Lab 02 — DevOps Incident Triage
 - [ ] Lab 03 — Deployment Risk Scoring
-- [ ] Lab 04 — Agent Skill Router
+- [ ] Lab 04 — Agent / Model Router
 - [ ] Lab 05 — Evals & Threshold Tuning
+- [ ] Lab 06 — Production Issue Triage
+- [ ] Lab 07 — Laya Internals
+- [ ] Lab 08 — Laya Runtime Engineering
